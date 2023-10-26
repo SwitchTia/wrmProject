@@ -15,8 +15,8 @@ import wrm.progetto_wrm.UTILITIES.Configurations.AuthenticationRequest;
 import wrm.progetto_wrm.UTILITIES.Configurations.AuthenticationResponse;
 import wrm.progetto_wrm.UTILITIES.Configurations.RegisterRequest;
 import wrm.progetto_wrm.UTILITIES.Exceptions.DataNotCorrectException;
-import wrm.progetto_wrm.UTILITIES.Exceptions.LimitOfFiveActiveTaskEccededException;
 import wrm.progetto_wrm.UTILITIES.Exceptions.TaskDoesNotExistException;
+import wrm.progetto_wrm.UTILITIES.Exceptions.TaskExceededLimitException;
 import wrm.progetto_wrm.UTILITIES.Exceptions.UserAlreadyExistsException;
 import wrm.progetto_wrm.UTILITIES.Exceptions.UserBudgetEccededException;
 import wrm.progetto_wrm.UTILITIES.Exceptions.UserDoesNotExistException;
@@ -36,8 +36,8 @@ import wrm.progetto_wrm.repositories.UsersRepository;
 @RequiredArgsConstructor
 public class UsersService {
     
-    
-    final UsersRepository ur;
+    @Autowired
+    UsersRepository ur;
 
     @Autowired
     TaskRepository tr;
@@ -208,19 +208,20 @@ public class UsersService {
             throw new TaskDoesNotExistException();
         }
         if (u.getActiveTaskList().size() >= 5)  {
-            throw new LimitOfFiveActiveTaskEccededException ();
+            throw new TaskExceededLimitException ();
         }
-        if (u.getUserBudget() < t.getTaskBudget()){
+        if (u.getUserTotalBudget() < t.getTaskCost()){
             throw new UserBudgetEccededException ();
         }
-        u.setUserBudget (u.getUserBudget() - t.getTaskBudget());
+        u.setUserTotalBudget (u.getUserTotalBudget() - t.getTaskCost());
 
         ActiveTask at = new ActiveTask();
         at.setTaskName(t.getTaskName());
         at.setTaskCode(t.getTaskCode());
-        at.setTaskBudget(t.getTaskBudget());
+        at.setTaskCost(t.getTaskCost());
         at.setTaskProfit(t.getTaskProfit());
-        at.setVersion(t.getVersion());
+        at.setU(u);
+
         at = atr.save(at);
         tr.delete(t);
 
@@ -244,12 +245,11 @@ public class UsersService {
         Task t = new Task();
         t.setTaskName(at.getTaskName());
         t.setTaskCode(at.getTaskCode());
-        t.setTaskBudget(at.getTaskBudget());
+        t.setTaskCost(at.getTaskCost());
         t.setTaskProfit(at.getTaskProfit());
-        t.setVersion(at.getVersion());
 
         tr.save(t);
-        u.setUserBudget (u.getUserBudget() + at.getTaskBudget());
+        u.setUserTotalBudget (u.getUserTotalBudget() + at.getTaskCost());
         atr.delete(at);
         u.getActiveTaskList().remove(at);
         
@@ -271,27 +271,35 @@ public class UsersService {
         ClosedTask ct  = new ClosedTask();
         ct.setTaskName(at.getTaskName());
         ct.setTaskCode(at.getTaskCode());
-        ct.setTaskBudget(at.getTaskBudget());
+        ct.setTaskCost(at.getTaskCost());
         ct.setTaskProfit(at.getTaskProfit());
-        ct.setVersion(at.getVersion());
+        ct.setU(at.getU());
 
         ct = ctr.save(ct);
         atr.delete(at);
 
         u.getClosedTaskList().add(ct);
-        u.setUserBudget (u.getUserBudget() + ct.getTaskProfit());
+        u.getActiveTaskList().remove(at);
+        u.setUserTotalBudget (u.getUserTotalBudget() + ct.getTaskProfit());
         u.setUserProfit(ct.getTaskProfit());
 
         return u = ur.save(u);
     }
 
-    /*public List <ClosedTask> getAllClosedTask  () {
+    public List <ActiveTask> getAllActiveTasks () {
+
+        List <ActiveTask> allActiveTaskList = new ArrayList <> ();
+        allActiveTaskList = atr.findAll();
+
+        return allActiveTaskList;
+    }
+
+    public List <ClosedTask> getAllClosedTasks (){
+
         List <ClosedTask> allClosedTaskList = new ArrayList <> ();
-        List <Users> usersList = ur.findAll();
-        for (Users users : usersList ){
-            allClosedTaskList.add(closedTaskList);
-        }
+        allClosedTaskList = ctr.findAll();
+
         return allClosedTaskList;
-    }*/
+    }
 
 }

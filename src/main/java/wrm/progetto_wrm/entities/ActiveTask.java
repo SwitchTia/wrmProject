@@ -9,6 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Version;
 import lombok.AllArgsConstructor;
@@ -33,8 +34,8 @@ public class ActiveTask {
     @Column (name = "at_code", nullable = false, unique = true)
     private int taskCode;
 
-    @Column (name = "at_budget")
-    private double taskBudget;
+    @Column (name = "at_cost")
+    private double taskCost;
 
     @Column (name = "at_profit")
     private double taskProfit;
@@ -43,19 +44,16 @@ public class ActiveTask {
     @Column (name = "version")
     private Long version;
 
-    /*//Reverse relationship between ActiveTask and ClosedTask
-    @OneToOne
+    //Reverse relationship ActiveTask and User
+    @ManyToOne
+    @JoinColumn (name = "user_id")
+    private Users u;
+
+    //Reverse relationship between ActiveTask and ClosedTask
+    /*@OneToOne
     @JsonIgnore
     @JoinColumn (name = "task_id")
     private ClosedTask ct; */
-
-    //Reverse relationship ActiveTask and User
-    @ManyToOne
-    @JsonIgnore
-    @JoinColumn (name = "user_id")
-    private Users u;
-    
-
     
 }
 

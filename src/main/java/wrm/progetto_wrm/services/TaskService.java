@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
 import wrm.progetto_wrm.UTILITIES.Exceptions.DataNotCorrectException;
 import wrm.progetto_wrm.UTILITIES.Exceptions.TaskAlreadyExistsException;
+import wrm.progetto_wrm.UTILITIES.Exceptions.TaskCostInferiorTaskProfitException;
 import wrm.progetto_wrm.UTILITIES.Exceptions.TaskDoesNotExistException;
 import wrm.progetto_wrm.entities.Task;
 import wrm.progetto_wrm.repositories.TaskRepository;
@@ -23,6 +24,9 @@ public class TaskService {
         if (tr.existsByTaskCode(t.getTaskCode())){
             throw new TaskAlreadyExistsException ();
         }
+        if (t.getTaskCost() > t.getTaskProfit()){
+            throw new TaskCostInferiorTaskProfitException ();
+        }
         return tr.save(t);
     }
 
@@ -33,24 +37,33 @@ public class TaskService {
             throw new DataNotCorrectException();
         }
         tr.delete (t);
-        String del = "The task has been deleted";
+        String del = "The task with task code " + taskCode + " has been deleted";
         return del;
     }
 
     public Task getTask (int taskCode) {
-        return tr.findByTaskCode(taskCode);
+        Task t = tr.findByTaskCode (taskCode);
+        if (!tr.existsByTaskCode(taskCode)){
+            throw new TaskDoesNotExistException();
+        }
+        return t;
     }
     
     @Transactional
-    public Task modifyTask (String taskName, int taskCode, int taskBudget, int taskProfit) throws RuntimeException {
+    public Task modifyTask (String taskName, int taskCode, double taskCost, double taskProfit) throws RuntimeException {
         Task t = tr.findByTaskCode(taskCode);
         if (t == null){
             throw new TaskDoesNotExistException();
         }
         t.setTaskName(taskName);
         t.setTaskCode(taskCode);
-        t.setTaskBudget(taskBudget);
-        t.setTaskProfit(taskProfit);
+        if (taskCost > taskProfit){
+            throw new TaskCostInferiorTaskProfitException ();
+        }
+        else {
+            t.setTaskCost(taskCost);
+            t.setTaskProfit(taskProfit);
+        }
         tr.save (t);
         return t;
     } 

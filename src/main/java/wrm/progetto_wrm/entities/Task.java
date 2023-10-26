@@ -31,8 +31,8 @@ public class Task {
     @Column (name = "task_code", nullable = false, unique = true)
     private int taskCode;
 
-    @Column (name = "task_budget")
-    private double taskBudget;
+    @Column (name = "task_cost")
+    private double taskCost;
 
     @Column (name = "task_profit")
     private double taskProfit;

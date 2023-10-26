@@ -59,7 +59,7 @@ public class TaskController {
     }
 
     @GetMapping ("/getTask")
-    @PreAuthorize ("hasAnyAuthority ('MANAGER')")
+    @PreAuthorize ("hasAnyAuthority ('MANAGER','WORKER')")
     public ResponseEntity getTask (@RequestParam ("taskCode") int taskCode) {
         try {
             return new ResponseEntity (ts.getTask(taskCode), HttpStatus.OK);
@@ -70,28 +70,16 @@ public class TaskController {
     }
 
     @GetMapping ("/getAllTasks")
-    @PreAuthorize ("hasAuthority ('MANAGER')")
+    @PreAuthorize ("hasAnyAuthority ('MANAGER','WORKER')")
     public ResponseEntity getAllTasks () {
         return new ResponseEntity (tr.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping ("/getAllActiveTasks")
-    @PreAuthorize ("hasAuthority ('MANAGER')")
-    public ResponseEntity getAllActiveTasks () {
-        return new ResponseEntity (atr.findAll(), HttpStatus.OK);
-    }
-
-    @GetMapping ("/getAllClosedTasks")
-    @PreAuthorize ("hasAuthority ('MANAGER')")
-    public ResponseEntity getAllClosedTasks () {
-        return new ResponseEntity (ctr.findAll(), HttpStatus.OK);
-    }
-
     @PutMapping ("/modifyTask")
     @PreAuthorize ("hasAnyAuthority ('MANAGER')")
-    public ResponseEntity modifyTask (@RequestParam ("taskName") String taskName, @RequestParam ("taskCode") int taskCode, @RequestParam ("taskBudget") int taskBudget, @RequestParam ("taskProfit") int taskProfit) {
+    public ResponseEntity modifyTask (@RequestParam ("taskName") String taskName, @RequestParam ("taskCode") int taskCode, @RequestParam ("taskCost") double taskCost, @RequestParam ("taskProfit") double taskProfit) {
         try {
-            return new ResponseEntity (ts.modifyTask (taskName, taskCode, taskBudget, taskProfit), HttpStatus.OK);
+            return new ResponseEntity (ts.modifyTask (taskName, taskCode, taskCost, taskProfit), HttpStatus.OK);
         } catch (RuntimeException e) {
             String ex = e.getClass().getSimpleName();
             return new ResponseEntity (ex, HttpStatus.BAD_REQUEST);

@@ -8,6 +8,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -51,19 +53,21 @@ public class Users implements UserDetails{
     @Column (name = "user_profit")
     private double userProfit;
 
-    @Column (name = "user_budget")
-    private double userBudget = 60.0;
+    @Column (name = "user_total_budget")
+    private double userTotalBudget = 100.0;
     
     @Enumerated  (EnumType.STRING) 
     private Role role;
 
     //Relationship Users and ActiveTask
     @OneToMany
+    @JsonIgnore
     @JoinColumn (name = "active_task")
     private List <ActiveTask> activeTaskList = new ArrayList <> ();
 
     //Relationship Users and ClosedTask
     @OneToMany
+    @JsonIgnore
     @JoinColumn (name = "closed_task")
     private List <ClosedTask> closedTaskList = new ArrayList <> ();
 

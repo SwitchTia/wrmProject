@@ -1,7 +1,6 @@
 package wrm.progetto_wrm.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,12 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.servlet.http.HttpServletRequest;
 import wrm.progetto_wrm.UTILITIES.Configurations.AuthenticationRequest;
 import wrm.progetto_wrm.UTILITIES.Configurations.RegisterRequest;
-import wrm.progetto_wrm.entities.ActiveTask;
-import wrm.progetto_wrm.entities.ClosedTask;
-import wrm.progetto_wrm.entities.Task;
 import wrm.progetto_wrm.repositories.UsersRepository;
 import wrm.progetto_wrm.services.JwtService;
-import wrm.progetto_wrm.services.TaskService;
 import wrm.progetto_wrm.services.UsersService;
 
 @RestController
@@ -154,8 +149,9 @@ public class UsersController {
 
     @PostMapping ("/acceptTask")
     @PreAuthorize ("hasAnyAuthority('MANAGER','WORKER')")
-    public ResponseEntity acceptTask (@RequestParam ("email") String email, @RequestParam ("taskCode") Integer taskCode) {
+    public ResponseEntity acceptTask (HttpServletRequest servletRequest, @RequestParam ("taskCode") Integer taskCode) {
         try {
+            String email =jwtService.extractEmailFromRequest(servletRequest);
             return new ResponseEntity (us.acceptTask (email, taskCode), HttpStatus.OK);
         } catch (RuntimeException e) {
             String ex = e.getClass().getSimpleName();
@@ -165,8 +161,9 @@ public class UsersController {
 
     @DeleteMapping ("/cancelAcceptedTask")
     @PreAuthorize ("hasAnyAuthority('MANAGER','WORKER')")
-    public ResponseEntity cancelAcceptedTask (@RequestParam ("email") String email, @RequestParam ("taskCode") Integer taskCode) {
+    public ResponseEntity cancelAcceptedTask (HttpServletRequest servletRequest, @RequestParam ("taskCode") Integer taskCode) {
         try {
+            String email =jwtService.extractEmailFromRequest(servletRequest);
             return new ResponseEntity (us.cancelAcceptedTask(email, taskCode), HttpStatus.OK);
         } catch (RuntimeException e) {
             String ex = e.getClass().getSimpleName();
@@ -176,8 +173,9 @@ public class UsersController {
 
     @PostMapping ("/addClosedTask")
     @PreAuthorize ("hasAnyAuthority('MANAGER','WORKER')")
-    public ResponseEntity addClosedTask (@RequestParam ("email") String email, @RequestParam ("taskCode")int taskCode){
+    public ResponseEntity addClosedTask (HttpServletRequest servletRequest, @RequestParam ("taskCode")int taskCode){
         try {
+            String email =jwtService.extractEmailFromRequest(servletRequest);
             return new ResponseEntity (us.addClosedTask(email, taskCode), HttpStatus.OK);
         } catch (RuntimeException e) {
             String ex = e.getClass().getSimpleName();
@@ -185,7 +183,18 @@ public class UsersController {
         }
     }
 
-    /*@PostMapping ("/getAllClosedTasks")
+    @GetMapping ("/getAllActiveTasks")
+    @PreAuthorize ("hasAuthority('MANAGER')")
+    public ResponseEntity getAllActiveTasks (){
+        try {
+            return new ResponseEntity (us.getAllActiveTasks(), HttpStatus.OK);
+        } catch (RuntimeException e) {
+            String ex = e.getClass().getSimpleName();
+            return new ResponseEntity(ex, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping ("/getAllClosedTasks")
     @PreAuthorize ("hasAuthority('MANAGER')")
     public ResponseEntity getAllClosedTasks (){
         try {
@@ -194,5 +203,5 @@ public class UsersController {
             String ex = e.getClass().getSimpleName();
             return new ResponseEntity(ex, HttpStatus.BAD_REQUEST);
         }
-    }*/
+    }
 }
