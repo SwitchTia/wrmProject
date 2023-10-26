@@ -1,0 +1,817 @@
+{
+	"info": {
+		"_postman_id": "21e771f2-4844-4b66-b8e2-aec7c8aad5e8",
+		"name": "project_wrm",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "UserRequests",
+			"item": [
+				{
+					"name": "RegisterManager",
+					"id": "662de8d2-1ff0-4867-bd9f-9272714ba2db",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstname\": \"Marco\",\n    \"lastname\": \"Neri\",\n    \"email\": \"marco.neri@gmail.com\",\n    \"password\": \"1234\"\n     \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/users/registerManager"
+					},
+					"response": []
+				},
+				{
+					"name": "AuthenticateManager",
+					"id": "aeebd6e8-4a66-4ba2-946c-34c90fbee36b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"email\": \"marco.neri@gmail.com\",\n\n \"password\": \"1234\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/users/authenticate"
+					},
+					"response": []
+				},
+				{
+					"name": "RegisterWorker",
+					"id": "8018eef3-971d-4035-a7c5-a720de1c3be7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstname\": \"Maria\",\n    \"lastname\": \"Rossi\",\n    \"email\": \"maria.rossi@gmail.com\",\n    \"password\": \"1234\"\n     \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/users/registerWorker"
+					},
+					"response": []
+				},
+				{
+					"name": "AuthenticateWorker",
+					"id": "edcf3197-c278-4775-8b76-f3708bc1124b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n    \"email\": \"maria.rossi@gmail.com\",\n\n    \"password\": \"1234\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/users/authenticate"
+					},
+					"response": []
+				},
+				{
+					"name": "AcceptTask",
+					"id": "1c5f2283-5524-4792-9035-8c1e87ca8c3b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJjby5uZXJpQGdtYWlsLmNvbSIsImlhdCI6MTY5ODMyOTU3OCwiZXhwIjoxNjk4MzQzOTc4fQ.Fa_bUPCKVJq_kpNmST5uxR1um2taCWdQ9K3YdwZ3ljg"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/acceptTask?taskCode=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"acceptTask"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "maria.rossi@gmail.com",
+									"disabled": true
+								},
+								{
+									"key": "taskCode",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AddClosedTask",
+					"id": "f9370dd7-2027-448e-8323-51ca57658501",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJjby5uZXJpQGdtYWlsLmNvbSIsImlhdCI6MTY5ODMyOTU3OCwiZXhwIjoxNjk4MzQzOTc4fQ.Fa_bUPCKVJq_kpNmST5uxR1um2taCWdQ9K3YdwZ3ljg"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/addClosedTask?taskCode=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"addClosedTask"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "maria.rossi@gmail.com",
+									"disabled": true
+								},
+								{
+									"key": "taskCode",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUser",
+					"id": "44ca1949-9f3e-4794-81a5-5ef2712b2a48",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJjby5uZXJpQGdtYWlsLmNvbSIsImlhdCI6MTY5ODMyOTU3OCwiZXhwIjoxNjk4MzQzOTc4fQ.Fa_bUPCKVJq_kpNmST5uxR1um2taCWdQ9K3YdwZ3ljg"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/getUser?email=maria.rossi@gmail.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"getUser"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "maria.rossi@gmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllUsers",
+					"id": "d3dac6ae-de9d-4353-84f5-4bfe661804e6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJjby5uZXJpQGdtYWlsLmNvbSIsImlhdCI6MTY5ODMyOTU3OCwiZXhwIjoxNjk4MzQzOTc4fQ.Fa_bUPCKVJq_kpNmST5uxR1um2taCWdQ9K3YdwZ3ljg"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/users/getAllUsers"
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllActiveTasks",
+					"id": "de5b20fb-1b59-431e-9d86-d24b6057f63f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJjby5uZXJpQGdtYWlsLmNvbSIsImlhdCI6MTY5ODMyOTU3OCwiZXhwIjoxNjk4MzQzOTc4fQ.Fa_bUPCKVJq_kpNmST5uxR1um2taCWdQ9K3YdwZ3ljg"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/users/getAllActiveTasks"
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllClosedTasks",
+					"id": "09afcef3-32e5-44f0-8a12-e1642d314e4e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJjby5uZXJpQGdtYWlsLmNvbSIsImlhdCI6MTY5ODMyOTU3OCwiZXhwIjoxNjk4MzQzOTc4fQ.Fa_bUPCKVJq_kpNmST5uxR1um2taCWdQ9K3YdwZ3ljg"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/users/getAllClosedTasks"
+					},
+					"response": []
+				},
+				{
+					"name": "ModifyUser",
+					"id": "6cf992b8-97ac-44fe-96fe-abad99cca21a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJjby5uZXJpQGdtYWlsLmNvbSIsImlhdCI6MTY5ODMxNDcyMiwiZXhwIjoxNjk4MzI5MTIyfQ.rMRrZk8IS-10cMxFR9omcNYEYICnXWnNBeJQg9dc7uA"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/modifyUser?email=maria.rossi@gmail.com&firstname=Marta&lastname=Rossi",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"modifyUser"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "maria.rossi@gmail.com"
+								},
+								{
+									"key": "firstname",
+									"value": "Marta"
+								},
+								{
+									"key": "lastname",
+									"value": "Rossi"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ModifyUserEmail",
+					"id": "9c18071f-d036-41f3-ab4a-c39d10a57a54",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJjby5uZXJpQGdtYWlsLmNvbSIsImlhdCI6MTY5ODMxNDcyMiwiZXhwIjoxNjk4MzI5MTIyfQ.rMRrZk8IS-10cMxFR9omcNYEYICnXWnNBeJQg9dc7uA"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/modifyUserEmail?email=maria.rossi@gmail.com&newEmail=marta.rossi@gmail.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"modifyUserEmail"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "maria.rossi@gmail.com"
+								},
+								{
+									"key": "newEmail",
+									"value": "marta.rossi@gmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ModifyUserPassword",
+					"id": "e40596c2-66c7-4289-9485-b97370db1158",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJpYS5yb3NzaUBnbWFpbC5jb20iLCJpYXQiOjE2OTgzMjIxNzYsImV4cCI6MTY5ODMzNjU3Nn0.m0wRC_7qzyPwT8TaYWgqqrTDt2RDnzNk7UzUbaBmi5w"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/modifyUserPassword?password=1234&newPassword=12345",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"modifyUserPassword"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "maria.rossi@gmail.com",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "1234"
+								},
+								{
+									"key": "newPassword",
+									"value": "12345"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpgradeRole",
+					"id": "5418a899-e927-4d83-9297-18ac83eb4b9d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJjby5uZXJpQGdtYWlsLmNvbSIsImlhdCI6MTY5ODMyMjE1NSwiZXhwIjoxNjk4MzM2NTU1fQ.4mFumRbTUhpHkgvACro5NT3o8McfUJW7O7pWmrYLFMM"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/upgradeRole?email=maria.rossi@gmail.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"upgradeRole"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "maria.rossi@gmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DowngradeRole",
+					"id": "9bc23ee3-1656-4a78-a22e-f2600c640503",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJjby5uZXJpQGdtYWlsLmNvbSIsImlhdCI6MTY5ODMyMjE1NSwiZXhwIjoxNjk4MzM2NTU1fQ.4mFumRbTUhpHkgvACro5NT3o8McfUJW7O7pWmrYLFMM"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/downgradeRole?email=maria.rossi@gmail.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"downgradeRole"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "maria.rossi@gmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CancelAcceptedTask",
+					"id": "d0233a10-0535-431c-941d-e8a02209cdf7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJjby5uZXJpQGdtYWlsLmNvbSIsImlhdCI6MTY5ODMyMjE1NSwiZXhwIjoxNjk4MzM2NTU1fQ.4mFumRbTUhpHkgvACro5NT3o8McfUJW7O7pWmrYLFMM"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/cancelAcceptedTask?email=maria.rossi@gmail.com&taskCode=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"cancelAcceptedTask"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "maria.rossi@gmail.com"
+								},
+								{
+									"key": "taskCode",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUser",
+					"id": "b6637df1-9f79-4c41-ba82-981f7b87d8e5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJjby5uZXJpQGdtYWlsLmNvbSIsImlhdCI6MTY5ODMyMjE1NSwiZXhwIjoxNjk4MzM2NTU1fQ.4mFumRbTUhpHkgvACro5NT3o8McfUJW7O7pWmrYLFMM"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/deleteUser?email=maria.rossi@gmail.com",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								"deleteUser"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "maria.rossi@gmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "26434968-b540-4390-83bf-6384df85fadf"
+		},
+		{
+			"name": "TaskRequests",
+			"item": [
+				{
+					"name": "SaveTask",
+					"id": "d1db950c-6ad2-4f09-8ee2-95f820010784",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJjby5uZXJpQGdtYWlsLmNvbSIsImlhdCI6MTY5ODMyOTU3OCwiZXhwIjoxNjk4MzQzOTc4fQ.Fa_bUPCKVJq_kpNmST5uxR1um2taCWdQ9K3YdwZ3ljg"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"taskName\": \"Mail sorting\",\n    \"taskCode\" : \"1\",\n    \"taskCost\" : \"20.0\",\n    \"taskProfit\": \"25.0\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/task/saveTask"
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllTasks",
+					"id": "5fc346f9-821f-4226-8555-538b0572951d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJpYS5yb3NzaUBnbWFpbC5jb20iLCJpYXQiOjE2OTgzMjY2NzgsImV4cCI6MTY5ODM0MTA3OH0.JkYPWvyxz3H3rzAzKWyuquH3Lfk3PWvaLB3aFFpcS_k"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/task/getAllTasks"
+					},
+					"response": []
+				},
+				{
+					"name": "GetTask",
+					"id": "9d7f2959-33de-4443-800c-b037ae31dc1a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJpYS5yb3NzaUBnbWFpbC5jb20iLCJpYXQiOjE2OTgzMjY2NzgsImV4cCI6MTY5ODM0MTA3OH0.JkYPWvyxz3H3rzAzKWyuquH3Lfk3PWvaLB3aFFpcS_k"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/task/getTask?taskCode=3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"task",
+								"getTask"
+							],
+							"query": [
+								{
+									"key": "taskCode",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "TaskSortPage",
+					"id": "78118364-929f-4159-9c32-31e561503cb2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJjby5uZXJpQGdtYWlsLmNvbSIsImlhdCI6MTY5ODMyNzYxNywiZXhwIjoxNjk4MzQyMDE3fQ.ub8sFs-dIqknI22PE8s-gbqINmCUPf8KTpInqIqJdSk"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/task/taskSortPage?pageNr=0&pageSize=3&sortDirection=asc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"task",
+								"taskSortPage"
+							],
+							"query": [
+								{
+									"key": "pageNr",
+									"value": "0"
+								},
+								{
+									"key": "pageSize",
+									"value": "3"
+								},
+								{
+									"key": "sortDirection",
+									"value": "asc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ModifyTask",
+					"id": "248d23bc-e1f5-4377-b5b8-1e97a863a085",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJjby5uZXJpQGdtYWlsLmNvbSIsImlhdCI6MTY5ODMzMTk1OCwiZXhwIjoxNjk4MzQ2MzU4fQ.pr_vKMizV9KuA1ti4U0dmjwm36n_bRyz2_MazP8roBg"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/task/modifyTask?taskName=Mail sorting&taskCode=1&taskCost=30.0&taskProfit=35.0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"task",
+								"modifyTask"
+							],
+							"query": [
+								{
+									"key": "taskName",
+									"value": "Mail sorting"
+								},
+								{
+									"key": "taskCode",
+									"value": "1"
+								},
+								{
+									"key": "taskCost",
+									"value": "30.0"
+								},
+								{
+									"key": "taskProfit",
+									"value": "35.0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteTask",
+					"id": "e12c70e4-3e23-49a3-b728-503951e2838f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJjby5uZXJpQGdtYWlsLmNvbSIsImlhdCI6MTY5ODMyNzYxNywiZXhwIjoxNjk4MzQyMDE3fQ.ub8sFs-dIqknI22PE8s-gbqINmCUPf8KTpInqIqJdSk"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/task/deleteTask?taskCode=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"task",
+								"deleteTask"
+							],
+							"query": [
+								{
+									"key": "taskCode",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "30d71274-6b66-49f4-9c90-603a67bb8871"
+		}
+	]
+}
